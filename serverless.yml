@@ -1,0 +1,22 @@
+service: golang-sls-offline-windows-bug
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: go1.x
+  stage: ${opt:stage, 'dev'}
+  region: us-west-2
+
+functions:
+  myService:
+    handler: ./services/my_service.go
+    events:
+      - http:
+          path: /
+          method: get
+plugins:
+  - serverless-offline
+
+package:
+  individually: true
